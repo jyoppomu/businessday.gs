@@ -130,14 +130,7 @@ dist
 .pnp.*
 Footer
 
-# nodenv
-.node-version
-
 # clasp
 public/*
 !public/appsscript.json
 !public/.claspignore
-
-
-# mise
-mise.toml
