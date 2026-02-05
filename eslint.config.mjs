@@ -30,7 +30,7 @@ export default defineConfig([
 
     plugins: {
       "@typescript-eslint": typescriptEslint,
-      import: importPlugin,
+      "import": importPlugin,
     },
 
     settings: {
