@@ -1,2 +1,7 @@
+[env]
+_.path = [
+    "{{config_root}}/node_modules/.bin",
+]
+
 [tools]
-node = "22.22.0"
+node = {version = "22.22.0", postinstall = "npm install"}
