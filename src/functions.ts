@@ -44,7 +44,7 @@ const isWeekDay = (date: Date): boolean => {
  */
 const isJapaneseHoliday = (date: Date): boolean => {
   const calendarId = properties.getProperty(
-    "GOOGLE_JAPANESE_HOLIDAY_CALENDAR_ID",
+    "GOOGLE_JAPANESE_HOLIDAY_CALENDAR_ID"
   );
   if (calendarId === null) {
     throw new Error("unset script properties for ID of calendar.");
@@ -52,21 +52,21 @@ const isJapaneseHoliday = (date: Date): boolean => {
   const japaneseHolidayCalendar = CalendarApp.getCalendarById(calendarId);
   const japaneseHolidayEvents = japaneseHolidayCalendar.getEvents(
     getFirstDayOfYear(date.getFullYear()),
-    getLastDayOfYear(date.getFullYear()),
+    getLastDayOfYear(date.getFullYear())
   );
   const japaneseHolidayEventDates: Date[] = japaneseHolidayEvents.map(
     (e) =>
       new Date(
         e.getStartTime().getTime() +
-          (new Date().getTimezoneOffset() + 9 * 60) * 60 * 1000,
-      ),
+          (new Date().getTimezoneOffset() + 9 * 60) * 60 * 1000
+      )
   );
   return (
     japaneseHolidayEventDates.filter(
       (d) =>
         d.getFullYear() === date.getFullYear() &&
         d.getMonth() === date.getMonth() &&
-        d.getDate() === date.getDate(),
+        d.getDate() === date.getDate()
     ).length > 0
   );
 };
@@ -82,24 +82,24 @@ const isNewYearHoliday = (date: Date): boolean => {
   const myCalendar = CalendarApp.getCalendarById(calendarId);
   const events = myCalendar.getEvents(
     getFirstDayOfYear(date.getFullYear()),
-    getLastDayOfYear(date.getFullYear()),
+    getLastDayOfYear(date.getFullYear())
   );
   const newYearHolidayEvents = events.filter(
-    (e) => e.getTitle() === "年末年始休暇",
+    (e) => e.getTitle() === "年末年始休暇"
   );
   const newYearHolidayEventDates: Date[] = newYearHolidayEvents.map(
     (e) =>
       new Date(
         e.getStartTime().getTime() +
-          (new Date().getTimezoneOffset() + 9 * 60) * 60 * 1000,
-      ),
+          (new Date().getTimezoneOffset() + 9 * 60) * 60 * 1000
+      )
   );
   return (
     newYearHolidayEventDates.filter(
       (d) =>
         d.getFullYear() === date.getFullYear() &&
         d.getMonth() === date.getMonth() &&
-        d.getDate() === date.getDate(),
+        d.getDate() === date.getDate()
     ).length > 0
   );
 };
@@ -113,7 +113,7 @@ export const isBusinessDay = (date: Date): boolean => {
  */
 export const getFirstBusinessDayOfMonth = (
   year: number,
-  monthIndex: number,
+  monthIndex: number
 ): Date => {
   const date = getFirstDayOfMonth(year, monthIndex);
   const lastDayOfMonth = getLastDayOfMonth(year, monthIndex);
@@ -131,7 +131,7 @@ export const getFirstBusinessDayOfMonth = (
  */
 export const getLastBusinessDayOfMonth = (
   year: number,
-  monthIndex: number,
+  monthIndex: number
 ): Date => {
   const date = getLastDayOfMonth(year, monthIndex);
   const lastDayOfMonth = getLastDayOfMonth(year, monthIndex);
@@ -149,7 +149,7 @@ export const getLastBusinessDayOfMonth = (
  */
 export const getBusinessDaysOfMonth = (
   year: number,
-  monthIndex: number,
+  monthIndex: number
 ): Date[] => {
   const dayOfMonth: Date = getFirstDayOfMonth(year, monthIndex);
   const lastDayOfMonth: Date = getLastDayOfMonth(year, monthIndex);
