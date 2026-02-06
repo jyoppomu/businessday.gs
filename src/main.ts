@@ -8,7 +8,7 @@ interface DateObj {
 class BusinessDay {
   private japaneseHolidayCalendar: GoogleAppsScript.Calendar.Calendar;
 
-  constructor(private newYearHolidays: DateObj[]) {
+  private constructor(private newYearHolidays: DateObj[]) {
     this.japaneseHolidayCalendar = CalendarApp.getCalendarById(
       properties.GOOGLE_JAPANESE_HOLIDAY_CALENDAR_ID
     );
@@ -172,13 +172,8 @@ class BusinessDay {
     return businessDaysOfMonth;
   }
 
-  public static createWithDefaultNewYearHolidays(): BusinessDay {
-    const defaultNewYearHolidays: DateObj[] = [
-      {monthIndex: 0, date: 1},
-      {monthIndex: 0, date: 2},
-      {monthIndex: 0, date: 3},
-    ];
-    return new BusinessDay(defaultNewYearHolidays);
+  public static create(newYearHolidays: DateObj[]): BusinessDay {
+    return new BusinessDay(newYearHolidays);
   }
 }
 
