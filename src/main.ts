@@ -9,16 +9,9 @@ class BusinessDay {
   private japaneseHolidayCalendar: GoogleAppsScript.Calendar.Calendar;
 
   constructor(private newYearHolidays: DateObj[]) {
-    const calendarId = properties.getProperty(
-      "GOOGLE_JAPANESE_HOLIDAY_CALENDAR_ID"
+    this.japaneseHolidayCalendar = CalendarApp.getCalendarById(
+      properties.GOOGLE_JAPANESE_HOLIDAY_CALENDAR_ID
     );
-    if (calendarId === null) {
-      throw new Error(
-        "unset script properties for ID of Japanese holiday calendar."
-      );
-    }
-
-    this.japaneseHolidayCalendar = CalendarApp.getCalendarById(calendarId);
   }
 
   /**
