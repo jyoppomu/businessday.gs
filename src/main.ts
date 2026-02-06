@@ -13,7 +13,6 @@ class BusinessDay {
       properties.GOOGLE_JAPANESE_HOLIDAY_CALENDAR_ID
     );
   }
-
   /**
    * 入力した月の初日を返す
    * @param year 年
@@ -54,6 +53,19 @@ class BusinessDay {
   private getLastDateOfYear(year: number): Date {
     const d = new Date(year + 1, 0, 0, 0);
     return d;
+  }
+
+  /**
+   * 入力した月のすべての日付を返す
+   * @param year 年
+   * @param monthIndex 月のインデックス（0〜11）
+   * @return 日付の配列
+   */
+  private getAllDatesOfMonth(year: number, monthIndex: number): Date[] {
+    const lastDateOfMonth: Date = this.getLastDateOfMonth(year, monthIndex);
+    return [...Array(lastDateOfMonth.getDate()).keys()].map((d) => {
+      return new Date(year, monthIndex, d + 1, 0);
+    });
   }
 
   /**
@@ -121,15 +133,14 @@ class BusinessDay {
    * @return 最初の営業日
    */
   public getFirstBusinessDayOfMonth(year: number, monthIndex: number): Date {
-    const date = this.getFirstDateOfMonth(year, monthIndex);
-    const lastDateOfMonth = this.getLastDateOfMonth(year, monthIndex);
-    for (const d of [...Array(lastDateOfMonth.getDate()).keys()]) {
-      if (this.isBusinessDay(date)) {
-        break;
-      }
-      date.setDate(d + 1);
+    const allDatesOfMonth = this.getAllDatesOfMonth(year, monthIndex);
+    const firstBusinessDayOfMonth = allDatesOfMonth.find((date) =>
+      this.isBusinessDay(date)
+    );
+    if (!firstBusinessDayOfMonth) {
+      throw new Error("Not found last business day of month");
     }
-    return date;
+    return firstBusinessDayOfMonth;
   }
 
   /**
@@ -139,15 +150,14 @@ class BusinessDay {
    * @return 最終の営業日
    */
   public getLastBusinessDayOfMonth(year: number, monthIndex: number): Date {
-    const date = this.getLastDateOfMonth(year, monthIndex);
-    const lastDateOfMonth = this.getLastDateOfMonth(year, monthIndex);
-    for (const d of [...Array(lastDateOfMonth.getDate()).keys()].reverse()) {
-      if (this.isBusinessDay(date)) {
-        break;
-      }
-      date.setDate(d + 1);
+    const allDatesOfMonth = this.getAllDatesOfMonth(year, monthIndex);
+    const lastBusinessDayOfMonth = allDatesOfMonth
+      .reverse()
+      .find((date) => this.isBusinessDay(date));
+    if (!lastBusinessDayOfMonth) {
+      throw new Error("Not found last business day of month");
     }
-    return date;
+    return lastBusinessDayOfMonth;
   }
 
   /**
@@ -157,19 +167,8 @@ class BusinessDay {
    * @return 営業日の配列
    */
   public getBusinessDaysOfMonth(year: number, monthIndex: number): Date[] {
-    const dayOfMonth: Date = this.getFirstDateOfMonth(year, monthIndex);
-    const lastDayOfMonth: Date = this.getLastDateOfMonth(year, monthIndex);
-    const businessDaysOfMonth: Date[] = [];
-    while (dayOfMonth) {
-      if (this.isBusinessDay(dayOfMonth)) {
-        businessDaysOfMonth.push(new Date(dayOfMonth.getTime()));
-      }
-      if (dayOfMonth.getDate() === lastDayOfMonth.getDate()) {
-        break;
-      }
-      dayOfMonth.setDate(dayOfMonth.getDate() + 1);
-    }
-    return businessDaysOfMonth;
+    const allDatesOfMonth = this.getAllDatesOfMonth(year, monthIndex);
+    return allDatesOfMonth.filter((date) => this.isBusinessDay(date));
   }
 
   public static create(newYearHolidays: DateObj[]): BusinessDay {
