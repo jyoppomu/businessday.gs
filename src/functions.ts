@@ -3,7 +3,7 @@ import properties from "./properties";
 /**
  * 入力した月の初日を返す
  */
-const getFirstDayOfMonth = (year: number, monthIndex: number): Date => {
+const getFirstDateOfMonth = (year: number, monthIndex: number): Date => {
   const d = new Date(year, monthIndex, 1, 0);
   return d;
 };
@@ -11,7 +11,7 @@ const getFirstDayOfMonth = (year: number, monthIndex: number): Date => {
 /**
  * 入力した日付の月の末日を返す
  */
-const getLastDayOfMonth = (year: number, monthIndex: number): Date => {
+const getLastDateOfMonth = (year: number, monthIndex: number): Date => {
   const d = new Date(year, monthIndex + 1, 0, 0);
   return d;
 };
@@ -19,7 +19,7 @@ const getLastDayOfMonth = (year: number, monthIndex: number): Date => {
 /**
  * 入力した年の初日を返す
  */
-const getFirstDayOfYear = (year: number): Date => {
+const getFirstDateOfYear = (year: number): Date => {
   const d = new Date(year, 0, 1, 0);
   return d;
 };
@@ -27,7 +27,7 @@ const getFirstDayOfYear = (year: number): Date => {
 /**
  * 入力した年の末日を返す
  */
-const getLastDayOfYear = (year: number): Date => {
+const getLastDateOfYear = (year: number): Date => {
   const d = new Date(year + 1, 0, 0, 0);
   return d;
 };
@@ -51,8 +51,8 @@ const isJapaneseHoliday = (date: Date): boolean => {
   }
   const japaneseHolidayCalendar = CalendarApp.getCalendarById(calendarId);
   const japaneseHolidayEvents = japaneseHolidayCalendar.getEvents(
-    getFirstDayOfYear(date.getFullYear()),
-    getLastDayOfYear(date.getFullYear())
+    getFirstDateOfYear(date.getFullYear()),
+    getLastDateOfYear(date.getFullYear())
   );
   const japaneseHolidayEventDates: Date[] = japaneseHolidayEvents.map(
     (e) =>
@@ -81,8 +81,8 @@ const isNewYearHoliday = (date: Date): boolean => {
   }
   const myCalendar = CalendarApp.getCalendarById(calendarId);
   const events = myCalendar.getEvents(
-    getFirstDayOfYear(date.getFullYear()),
-    getLastDayOfYear(date.getFullYear())
+    getFirstDateOfYear(date.getFullYear()),
+    getLastDateOfYear(date.getFullYear())
   );
   const newYearHolidayEvents = events.filter(
     (e) => e.getTitle() === "年末年始休暇"
@@ -115,8 +115,8 @@ export const getFirstBusinessDayOfMonth = (
   year: number,
   monthIndex: number
 ): Date => {
-  const date = getFirstDayOfMonth(year, monthIndex);
-  const lastDayOfMonth = getLastDayOfMonth(year, monthIndex);
+  const date = getFirstDateOfMonth(year, monthIndex);
+  const lastDayOfMonth = getLastDateOfMonth(year, monthIndex);
   for (const d of [...Array(lastDayOfMonth.getDate()).keys()]) {
     if (isBusinessDay(date)) {
       break;
@@ -133,8 +133,8 @@ export const getLastBusinessDayOfMonth = (
   year: number,
   monthIndex: number
 ): Date => {
-  const date = getLastDayOfMonth(year, monthIndex);
-  const lastDayOfMonth = getLastDayOfMonth(year, monthIndex);
+  const date = getLastDateOfMonth(year, monthIndex);
+  const lastDayOfMonth = getLastDateOfMonth(year, monthIndex);
   for (const d of [...Array(lastDayOfMonth.getDate()).keys()].reverse()) {
     if (isBusinessDay(date)) {
       break;
@@ -151,8 +151,8 @@ export const getBusinessDaysOfMonth = (
   year: number,
   monthIndex: number
 ): Date[] => {
-  const dayOfMonth: Date = getFirstDayOfMonth(year, monthIndex);
-  const lastDayOfMonth: Date = getLastDayOfMonth(year, monthIndex);
+  const dayOfMonth: Date = getFirstDateOfMonth(year, monthIndex);
+  const lastDayOfMonth: Date = getLastDateOfMonth(year, monthIndex);
   const businessDaysOfMonth: Date[] = [];
   while (dayOfMonth) {
     if (isBusinessDay(dayOfMonth)) {
