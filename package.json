@@ -1,6 +1,6 @@
 {
   "name": "businessday.gs",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "Business day calculation module for Google Apps Script",
   "scripts": {
     "prepare": "npm-run-all prepare:*",
