@@ -127,6 +127,19 @@ class BusinessDay {
   }
 
   /**
+   * 入力した日付の次の営業日を返す
+   * @param date 判定したい日付
+   * @return 次の営業日
+   */
+  public getNextBusinessDay(date: Date): Date {
+    const nextDate = new Date(date.getTime());
+    do {
+      nextDate.setDate(nextDate.getDate() + 1);
+    } while (!this.isBusinessDay(nextDate));
+    return nextDate;
+  }
+
+  /**
    * 入力した月の最初の営業日を返す
    * @param year 年
    * @param monthIndex 月のインデックス（0〜11）
