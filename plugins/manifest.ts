@@ -1,7 +1,7 @@
 import {existsSync, readFileSync} from "fs";
 import {join} from "path";
 
-import {getRelativePath} from "./utils";
+import {getRelativePath} from "./utils.ts";
 
 import type {ResolvedRollupPluginOptions} from "./types";
 import type {Plugin} from "rollup";

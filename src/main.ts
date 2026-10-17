@@ -1,4 +1,4 @@
-import properties from "./properties";
+import {properties} from "./properties.ts";
 
 interface DateObj {
   monthIndex: number;
@@ -10,7 +10,7 @@ class BusinessDay {
 
   private constructor(private newYearHolidays: DateObj[]) {
     this.japaneseHolidayCalendar = CalendarApp.getCalendarById(
-      properties.GOOGLE_JAPANESE_HOLIDAY_CALENDAR_ID
+      properties.googleJapaneseHolidayCalendarId
     );
   }
   /**

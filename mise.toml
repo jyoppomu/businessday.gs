@@ -1,7 +1,73 @@
 [env]
-_.path = [
-    "{{config_root}}/node_modules/.bin",
-]
+_.path = ["{{config_root}}/node_modules/.bin"]
 
 [tools]
-node = { version = "24.21.0", postinstall = "npm install" }
+node = "24.20.0"
+pnpm = "11.26.0"
+
+[hooks]
+postinstall = """
+pnpm install
+pnpm exec lefthook install
+"""
+
+[tasks."lint:all"]
+run = "pnpm run lint \"**/*.{ts,mts,js,mjs}\""
+hide = true
+
+[tasks."format:all"]
+run = "pnpm run format \"**/*.{ts,mts,js,mjs}\""
+hide = true
+
+[tasks.test]
+description = "Run tests for the project"
+run = "pnpm run test"
+
+[tasks.build]
+description = "Build the project"
+run = "pnpm run build"
+depends = ["lint:all", "format:all"]
+
+[tasks.login]
+description = "Login to clasp"
+run = "pnpm run clasp:login"
+
+[tasks.create]
+description = "Create a new clasp project"
+run = "pnpm run clasp:create"
+
+[tasks.clone]
+description = "Clone an existing clasp project"
+usage = """
+arg "<id>" help="The script ID of the existing clasp project"
+"""
+run = "pnpm run clasp:clone ${usage_id}"
+
+[tasks.push]
+description = "Push scripts after building the project"
+run = "pnpm run clasp:push"
+depends = ["build"]
+
+[tasks.pull]
+description = "Pull scripts"
+run = "pnpm run clasp:pull"
+
+[tasks.open]
+description = "Open scripts on the web"
+run = "pnpm run clasp:open"
+
+[tasks.version]
+description = "Version the project"
+run = "pnpm run clasp:version"
+
+[tasks."version:list"]
+description = "List all versions of the project"
+run = "pnpm run clasp:version:list"
+
+[tasks.deploy]
+description = "Deploy the project"
+run = "pnpm run clasp:deploy"
+
+[tasks."deploy:list"]
+description = "List all deployments of the project"
+run = "pnpm run clasp:deploy:list"

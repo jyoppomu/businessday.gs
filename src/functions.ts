@@ -1,4 +1,4 @@
-import {BusinessDay} from "./main";
+import {BusinessDay} from "./main.ts";
 
 export function create(
   holidays: {monthIndex: number; date: number}[] = []

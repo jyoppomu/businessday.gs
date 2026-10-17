@@ -1,7 +1,7 @@
 import {generate} from "gas-entry-generator";
 import {createFilter} from "rollup-pluginutils";
 
-import {getRelativePath} from "./utils";
+import {getRelativePath} from "./utils.ts";
 
 import type {
   ResolvedRollupPluginOptions,

@@ -1,4 +1,4 @@
-import {create} from "./functions";
+import {create} from "./functions.ts";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare let global: any;

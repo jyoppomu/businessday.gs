@@ -1,6 +1,6 @@
-import defineRollupPluginToInsertEntrypoints from "./entrypoints";
-import defineRollupPluginToCopyManifest from "./manifest";
-import resolvePluginOptions from "./options";
+import defineRollupPluginToInsertEntrypoints from "./entrypoints.ts";
+import defineRollupPluginToCopyManifest from "./manifest.ts";
+import resolvePluginOptions from "./options.ts";
 
 import type {RollupPluginOptions} from "./types";
 import type {Plugin} from "rollup";

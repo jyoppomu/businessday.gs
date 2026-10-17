@@ -27,9 +27,7 @@ export type RollupPluginOptions = {
 export type ResolvedRollupPluginOptions = Required<RollupPluginOptions>;
 
 export type PluginOptions =
-  | RollupPluginOptions
-  | CopyManifestOptions
-  | InsertEntrypointsOptions;
+  RollupPluginOptions | CopyManifestOptions | InsertEntrypointsOptions;
 
 export type ResolvedPluginOptions<T> = T extends RollupPluginOptions
   ? ResolvedRollupPluginOptions

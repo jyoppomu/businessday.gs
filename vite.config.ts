@@ -4,7 +4,7 @@ import path from "path";
 import typescript from "@rollup/plugin-typescript";
 import {defineConfig} from "vite";
 
-import gas from "./plugins";
+import gas from "./plugins/index.ts";
 
 export default defineConfig({
   plugins: [
@@ -27,17 +27,17 @@ export default defineConfig({
     },
     emptyOutDir: false,
     minify: false, // trueにすると関数名が消えるのでfalse必須
-    target: "es2015",
+    target: "esnext",
     sourcemap: true,
   },
-  esbuild: false,
+  oxc: false,
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      "@": path.resolve(import.meta.dirname, "./src"),
     },
   },
   test: {
-    globals: true,
+    globals: false,
     environment: "node",
   },
 });
