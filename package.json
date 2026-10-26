@@ -9,13 +9,13 @@
     "clasp:login": "clasp login",
     "clasp:create": "clasp create --rootDir dist",
     "clasp:clone": "clasp clone --rootDir dist",
-    "clasp:open": "clasp open-script",
-    "clasp:push": "clasp push",
-    "clasp:pull": "clasp pull",
-    "clasp:version": "clasp create-version $(git rev-parse --short=7 HEAD)",
-    "clasp:version:list": "clasp list-versions",
-    "clasp:deploy": "clasp create-deployment",
-    "clasp:deploy:list": "clasp list-deployments"
+    "clasp:open": "clasp --project .clasp.json open-script",
+    "clasp:push": "clasp --project .clasp.json push",
+    "clasp:pull": "clasp --project .clasp.json pull",
+    "clasp:version": "clasp --project .clasp.json create-version $(git rev-parse --short=7 HEAD)",
+    "clasp:version:list": "clasp --project .clasp.json list-versions",
+    "clasp:deploy": "clasp --project .clasp.json create-deployment",
+    "clasp:deploy:list": "clasp --project .clasp.json list-deployments"
   },
   "type": "module",
   "repository": {
